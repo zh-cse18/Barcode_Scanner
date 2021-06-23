@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Barcode Scanner</title>
+
+</head>
+
+<body>
+ <div class="row">
+      <div class="col-lg-4 mb-4">
+
+        <form  action="" novalidate method="post">
+          <div class="control-group form-group">
+               {% csrf_token %}
+            <div class="controls">
+              <label>Enter Barcode </label>
+              <input type="number" class="form-control" name ='barcode' id="email" required data-validation-required-message="Please enter your 12 digit barcode numberl.">
+              <p class="help-block"></p>
+            </div>
+          </div>
+          <!-- For success/fail messages -->
+          <button type="submit" class="btn btn-primary" id="login-btn">Search</button>
+        </form>
+      </div>
+    </div>
+
+ <div class="row">
+     {% if products %}
+     {% for product in products %}
+     <h1>Name :{{product.name}}</h1>
+     <h1>Country id: {{product.country_id}}</h1>
+     <h1>Manufacture id: {{product.manufacture_id}}</h1>
+     <h1>Number id:{{product.number_id}}</h1>
+     <hr/>
+     {% endfor %}
+     {% endif %}
+    </div>
+
+
+</body>
+
+</html>
