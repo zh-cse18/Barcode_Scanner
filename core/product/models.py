@@ -11,21 +11,13 @@ from PIL import Image, ImageDraw
 class Product(models.Model):
     name = models.CharField(max_length=200)
     bar_code = models.ImageField(upload_to='images/', blank=True, null=True)
-    qr_code = models.ImageField(upload_to='qr_codes/', blank=True)
+    qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
     country_id = models.IntegerField(max_length=2, null=True)
     manufacture_id = models.IntegerField(max_length=6, null=True)
     number_id = models.IntegerField(max_length=4, null=True)
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        EAN = barcode.get_barcode_class('ean13')
-        ean = EAN(f"{self.country_id}{self.manufacture_id}{self.number_id}", writer=ImageWriter())
-        buffer = BytesIO()
-        ean.write(buffer)
-        self.bar_code.save('barcode.png', File(buffer), save=False)
-        return super().save(*args, **kwargs)
 
     def save(self, *args, **kwargs):
         qrcode_img = qrcode.make(self.name)
@@ -38,3 +30,10 @@ class Product(models.Model):
         canvas.close()
         super().save(*args, **kwargs)
 
+    def save(self, *args, **kwargs):
+        EAN = barcode.get_barcode_class('ean13')
+        ean = EAN(f"{self.country_id}{self.manufacture_id}{self.number_id}", writer=ImageWriter())
+        buffer = BytesIO()
+        ean.write(buffer)
+        self.bar_code.save('barcode.png', File(buffer), save=False)
+        return super().save(*args, **kwargs)

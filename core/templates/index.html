@@ -21,7 +21,7 @@
                {% csrf_token %}
             <div class="controls">
               <label>Enter Barcode </label>
-              <input type="number" class="form-control" name ='barcode' id="email" required data-validation-required-message="Please enter your 12 digit barcode numberl.">
+              <input type="text" class="form-control" name ='barcode' id="email" required data-validation-required-message="Please enter your 12 digit barcode numberl.">
               <p class="help-block"></p>
             </div>
           </div>
@@ -40,6 +40,8 @@
      <h1>Number id:{{product.number_id}}</h1>
      <hr/>
      {% endfor %}
+     {% else %}
+     <h1> No matching data found</h1>
      {% endif %}
     </div>
 
