@@ -38,6 +38,10 @@
      <h1>Country id: {{product.country_id}}</h1>
      <h1>Manufacture id: {{product.manufacture_id}}</h1>
      <h1>Number id:{{product.number_id}}</h1>
+     <img src="/media/{{product.bar_code}}" alt="Barcode">
+     <img src="/media/{{product.qr_code}}" alt="Barcode">
+
+
      <hr/>
      {% endfor %}
      {% else %}
